@@ -15,16 +15,14 @@ import email_validator
 from collections import Counter
 import re
 from dash import Dash, dcc, html
+from markupsafe import Markup
 
+from dash_application.EDA import create_dash_application
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 app.config['SECRET_KEY'] = 'hard to guess string'
-dash_app = Dash(
-    __name__,
-    server=app,
-    url_base_pathname='/yourprofile/EDA/'
-)
+create_dash_application(app)
 
 @app.route('/')
 def test_boot( ):
@@ -71,33 +69,41 @@ def yourprofile():
    return render_template("yourprofile.html", form=form,title="GeoIA")
 
 
+
+
+
+
 @app.route('/project/',methods=['GET', 'POST'])
 def project():
    # Faire le traitement sur le fichier
    return render_template("project.html", title="GeoIA")
 
 
-dash_app.layout = html.Div(children=[
-    html.H1(children='Hello Dash'),
-    html.Div(children='''
-        Dash: A web application framework for your data.
-    '''),
-    html.Div(children=[
-    dcc.Graph(
-        id='example-graph',
-        figure={
-            'data': [
-                {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
-                {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
-            ],
-            'layout': {
-                'title': 'Dash Data Visualization'
-            }
-        }
-    )
-])
+
+
+# dash_app.layout = html.Div(children=[
     
-])
+    
+#     html.H1(children='Hello Dash'),
+#     html.Div(children='''
+#         Dash: A web application framework for your data.
+#     '''),
+#     html.Div(children=[
+#     dcc.Graph(
+#         id='example-graph',
+#         figure={
+#             'data': [
+#                 {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
+#                 {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
+#             ],
+#             'layout': {
+#                 'title': 'Dash Data Visualization'
+#             }
+#         }
+#     )
+# ])
+    
+# ])
 
 
 
